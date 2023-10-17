@@ -9,19 +9,27 @@
 // @grant        none
 // ==/UserScript==
 
+const hasRemoved = 0;
+const overlayInterval = setInterval(removeOverlay, 2000);
+
 function removeOverlay() {
-    const popup = document.querySelector("body > ytd-app > ytd-popup-container > tp-yt-paper-dialog");
+    if (Boolean(hasRemoved)) {
+        clearInterval(overlayInterval);
+        return;
+    }
+    
+    let popup = document.querySelector("body > ytd-app > ytd-popup-container > tp-yt-paper-dialog");
 
     if (popup != undefined) {
         popup.remove();
-
-        // OBSOLETE: popup is deleted instantly
         //clickPlay();
+
+        hasRemoved = 1;
     }
 }
 
 function clickPlay() {
-    const playButton = document.querySelector("#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > button");
+    let playButton = document.querySelector("#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > button");
 
     if (playButton != undefined) {
          playButton.click();
@@ -30,7 +38,8 @@ function clickPlay() {
 
 (function() {
     'use strict';
-
+    
+    // now inconsistent, hence why it's called every 2s now
     document.addEventListener("DOMContentLoaded", () => {
         removeOverlay();
     });
