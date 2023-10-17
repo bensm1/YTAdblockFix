@@ -9,7 +9,7 @@
 // @grant        none
 // ==/UserScript==
 
-const hasRemoved = 0;
+let hasRemoved = 0;
 const overlayInterval = setInterval(removeOverlay, 2000);
 
 function removeOverlay() {
